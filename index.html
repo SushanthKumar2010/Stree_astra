@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stree Astra - Smooth Heritage</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-color: #FFF8F0;
+  --text-color: #5C3A21;
+  --primary-color: #A85C4B;
+  --accent-color: #F3D191;
+  --secondary-color: #E4A76F;
+  --card-bg: rgba(245,235,220,0.95);
+  --highlight-color: #D99873;
+  --footer-bg: #7E4F45;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { font-size:18px; scroll-behavior:smooth; }
+body { font-family:'Poppins', sans-serif; background:var(--bg-color); color:var(--text-color); line-height:1.7; }
+
+/* Accessibility */
+.accessibility-bar {
+  background:var(--secondary-color);
+  color:#fff;
+  text-align:center;
+  padding:0.5rem;
+  position:sticky;
+  top:0;
+  z-index:1000;
+}
+.accessibility-bar button {
+  background:var(--primary-color);
+  border:none;
+  color:#fff;
+  padding:0.3rem 0.8rem;
+  margin:0 5px;
+  border-radius:5px;
+  cursor:pointer;
+  font-weight:600;
+  transition:0.3s;
+}
+.accessibility-bar button:hover { transform:scale(1.1); }
+
+/* Header */
+header {
+  background:var(--primary-color);
+  color:#fff;
+  padding:0.8rem 1rem;
+  position:sticky;
+  top:2.5rem;
+  z-index:999;
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+  border-bottom:3px solid var(--accent-color);
+}
+.header-container {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  max-width:1100px;
+  margin:0 auto;
+}
+.brand {
+  display:flex;
+  align-items:center;
+  gap:0.6rem;
+}
+.brand-name {
+  font-family:'Playfair Display', serif;
+  font-size:1.8rem;
+  font-weight:700;
+  color:#000;
+}
+.logo {
+  width:50px;
+  height:50px;
+  object-fit:contain;
+}
+nav {
+  display:flex;
+  gap:1rem;
+}
+nav a {
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  font-size:1.05rem;
+  position:relative;
+  transition:0.3s;
+}
+nav a::after {
+  content:"";
+  position:absolute;
+  width:0;
+  height:2px;
+  bottom:-3px;
+  left:0;
+  background:var(--accent-color);
+  transition:width 0.3s;
+}
+nav a:hover::after { width:100%; }
+
+/* Hamburger */
+.hamburger {
+  display:none;
+  flex-direction:column;
+  cursor:pointer;
+  gap:5px;
+}
+.hamburger div {
+  width:25px;
+  height:3px;
+  background:white;
+  transition:0.3s;
+}
+
+/* Hero */
+.hero {
+  position:relative;
+  background:url('https://images.unsplash.com/photo-1604503467566-cb1d5df74f53?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8aW5kaWFuJTIwY3JhZnR8fDB8fHx8MTY5NzA2OTY1Nw&ixlib=rb-4.0.3&q=80&w=1080') center/cover no-repeat fixed;
+  min-height:500px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding:4rem 1rem;
+  color:#fff;
+  overflow:hidden;
+  border-radius:16px;
+}
+.hero::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg, rgba(168,92,75,0.7), rgba(228,167,111,0.6));
+  z-index:0;
+  border-radius:16px;
+}
+.hero h1 {
+  font-family:'Playfair Display', serif;
+  font-size:3rem;
+  font-weight:700;
+  margin-bottom:0.6rem;
+  text-shadow:2px 2px 6px rgba(0,0,0,0.35);
+  z-index:1;
+}
+.hero p {
+  font-size:1.25rem;
+  max-width:600px;
+  margin-top:1rem;
+  z-index:1;
+}
+
+/* Products */
+#products {
+  max-width:1100px;
+  margin:3rem auto;
+  padding:2rem 1rem;
+  text-align:center;
+  background:var(--bg-color);
+  border-radius:16px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+#products h2 {
+  font-family:'Playfair Display', serif;
+  font-size:2rem;
+  color:var(--accent-color);
+  margin-bottom:2rem;
+  position:relative;
+}
+#products h2::after {
+  content:"• • •";
+  display:block;
+  color:var(--highlight-color);
+  margin:0.6rem auto;
+  font-size:1.5rem;
+}
+.product-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1.8rem;
+}
+.product-card {
+  background:var(--card-bg);
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.product-card:hover {
+  transform:translateY(-8px);
+  box-shadow:0 12px 24px rgba(168,92,75,0.25);
+}
+.product-card img { width:100%; height:220px; object-fit:cover; border-bottom:3px solid var(--highlight-color); }
+.product-card h3 { font-size:1.25rem; color:var(--text-color); margin:1rem 0; }
+
+/* Artisans */
+#artisans {
+  background:var(--bg-color);
+  padding:3rem 1rem;
+  border-radius:16px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  max-width:1100px;
+  margin:3rem auto;
+  text-align:center;
+}
+#artisans h2 {
+  font-family:'Playfair Display', serif;
+  font-size:2rem;
+  color:var(--accent-color);
+  margin-bottom:2rem;
+}
+.artisan-grid { display:flex; flex-wrap:wrap; gap:2rem; justify-content:center; }
+.artisan-profile {
+  width:260px;
+  background:var(--card-bg);
+  border-radius:12px;
+  padding:1rem;
+  box-shadow:0 3px 8px rgba(0,0,0,0.12);
+  transition:0.3s;
+}
+.artisan-profile:hover { transform:scale(1.05); box-shadow:0 8px 18px rgba(168,92,75,0.2); }
+.artisan-profile img { width:150px; height:150px; border-radius:50%; object-fit:cover; margin-bottom:1rem; border:3px solid var(--highlight-color); }
+.artisan-profile p { font-size:1rem; color:var(--text-color); }
+
+/* Footer */
+footer {
+  background:var(--footer-bg);
+  color:#fff;
+  padding:2rem 1rem;
+  text-align:center;
+  border-top-left-radius:50% 10%;
+  border-top-right-radius:50% 10%;
+}
+footer .social a { color:#fff; margin:0 12px; font-size:1.1rem; text-decoration:none; transition:0.3s; }
+footer .social a:hover { color:var(--accent-color); }
+
+/* Responsive */
+@media (max-width:768px) {
+  nav { 
+    display:none;
+    flex-direction:column;
+    gap:0;
+    background:var(--primary-color);
+    position:absolute;
+    top:100%;
+    right:0;
+    width:200px;
+    border-radius:0 0 8px 8px;
+  }
+  nav a { margin:1rem; font-size:1rem; }
+  .hamburger { display:flex; }
+  .hero h1 { font-size:2.2rem; }
+  .hero p { font-size:1.1rem; }
+  .product-grid, .artisan-grid { grid-template-columns:1fr; flex-direction:column; align-items:center; }
+  .product-card img, .artisan-profile img { height:200px; width:200px; }
+}
+
+@media (max-width:480px) { html { font-size:16px; } .hero { padding:3rem 1rem; } }
+
+/* High contrast */
+.high-contrast { background-color:#111 !important; color:#f9f9f9 !important; }
+.high-contrast nav a { color:#f9f9f9 !important; }
+</style>
+</head>
+<body>
+
+<!-- Accessibility -->
+<div class="accessibility-bar">
+  <button onclick="increaseFontSize()">A+</button>
+  <button onclick="decreaseFontSize()">A-</button>
+  <button onclick="toggleContrast()">🌓</button>
+</div>
+
+<!-- Header -->
+<header>
+  <div class="header-container">
+    <div class="brand">
+      <img src="stree_astra.png" alt="Stree Astra Logo" class="logo">
+      <span class="brand-name">Stree Astra</span>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <nav id="navMenu">
+      <a href="#products">Food</a>
+      <a href="#products">Handicrafts</a>
+      <a href="#artisans">Artisans</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <h1>Heritage Made Smooth & Elegant</h1>
+  <p>Discover authentic Indian flavors and crafts in a refined, premium style.</p>
+</section>
+
+<!-- Products -->
+<section id="products">
+  <h2>Featured Creations</h2>
+  <div class="product-grid">
+    <div class="product-card">
+      <img src="ladoo.jpg" alt="Traditional Laddoo">
+      <h3>Traditional Laddoo</h3>
+    </div>
+    <div class="product-card">
+      <img src="basket.jpg" alt="Handwoven Basket">
+      <h3>Handwoven Basket</h3>
+    </div>
+  </div>
+</section>
+
+<!-- Artisans -->
+<section id="artisans">
+  <h2>Meet Our Artisans</h2>
+  <div class="artisan-grid">
+    <div class="artisan-profile">
+      <img src="weaver.jpg" alt="Savitri Devi, Weaver">
+      <p><strong>Savitri Devi</strong> — Weaver preserving traditional craft with elegance.</p>
+    </div>
+    <div class="artisan-profile">
+      <img src="potter.jpg" alt="Ramesh Kumar, Potter">
+      <p><strong>Ramesh Kumar</strong> — Potter crafting soulful earthenware for generations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer id="contact">
+  <p>&copy; 2025 Stree Astra. Smooth Vibrant Heritage.</p>
+  <div class="social">
+    <a href="#">Instagram</a>
+    <a href="#">Facebook</a>
+  </div>
+</footer>
+
+<script>
+function increaseFontSize() { 
+  const html = document.documentElement; 
+  let size = parseFloat(getComputedStyle(html).fontSize); 
+  if(size < 24) html.style.fontSize=(size+2)+"px"; 
+}
+function decreaseFontSize() { 
+  const html = document.documentElement; 
+  let size = parseFloat(getComputedStyle(html).fontSize); 
+  if(size > 14) html.style.fontSize=(size-2)+"px"; 
+}
+function toggleContrast(){ document.body.classList.toggle('high-contrast'); }
+
+// Mobile menu toggle
+function toggleMenu(){
+  const nav = document.getElementById('navMenu');
+  if(nav.style.display === "flex") nav.style.display = "none";
+  else nav.style.display = "flex";
+}
+</script>
+
+</body>
+</html>
